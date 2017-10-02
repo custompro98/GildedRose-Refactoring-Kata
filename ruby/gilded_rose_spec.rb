@@ -52,5 +52,26 @@ describe GildedRose do
         end
       end
     end
+
+    context "sulfuras" do
+      let(:name) { "Sulfuras, Hand of Ragnaros" }
+      let(:quality) { 80 }
+
+      context "before the sell date" do
+        let(:sell_in) { 1 }
+
+        it "does not go up in value and the sell date doesn't change" do
+          expect(item.to_s).to eq "#{name}, 1, 80"
+        end
+      end
+
+      context "after the sell date" do
+        let(:sell_in) { 0 }
+
+        it "does not go up in vlaue and the sell date doesn't change" do
+          expect(item.to_s).to eq "#{name}, 0, 80"
+        end
+      end
+    end
   end
 end
