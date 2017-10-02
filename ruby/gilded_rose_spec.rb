@@ -73,5 +73,45 @@ describe GildedRose do
         end
       end
     end
+
+    context "backstage passes" do
+      let(:name) { "Backstage passes to a TAFKAL80ETC concert" }
+
+      context "at less than max quality" do
+        let(:quality) { 47 }
+
+        context "and 11 days before the sell date" do
+          let(:sell_in) { 11 }
+
+          it "goes up in value by one" do
+            expect(item.to_s).to eq "#{name}, 10, 48"
+          end
+        end
+
+        context "and 10 days before the sell date" do
+          let(:sell_in) { 10 }
+
+          it "goes up in value by two" do
+            expect(item.to_s).to eq("#{name}, 9, 49")
+          end
+        end
+
+        context "and 5 days before the sell date" do
+          let(:sell_in) { 5 }
+
+          it "goes up in value by three" do
+            expect(item.to_s).to eq("#{name}, 4, 50")
+          end
+        end
+
+        context "and after the sell date" do
+          let(:sell_in) { -1 }
+
+          it "drops to 0 quality" do
+            expect(item.to_s).to eq("#{name}, -2, 0")
+          end
+        end
+      end
+    end
   end
 end
